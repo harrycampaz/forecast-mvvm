@@ -8,6 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.dezzapps.mrforecast.R
+import com.dezzapps.mrforecast.data.ApiWeatherstackService
+import kotlinx.android.synthetic.main.current_weather_fragment.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import okhttp3.Dispatcher
 
 class CurrentWeatherFragment : Fragment() {
 
@@ -29,6 +35,13 @@ class CurrentWeatherFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CurrentWeatherViewModel::class.java)
         // TODO: Use the ViewModel
+
+        val apiWeatherstackService = ApiWeatherstackService()
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val currentWeatherResponse = apiWeatherstackService.getCurrentWeather("London").await()
+            textView.text = currentWeatherResponse.current.toString()
+        }
     }
 
 }
