@@ -1,4 +1,4 @@
-package com.dezzapps.mrforecast.data.response
+package com.dezzapps.mrforecast.data.db.entity
 
 
 import com.google.gson.annotations.SerializedName

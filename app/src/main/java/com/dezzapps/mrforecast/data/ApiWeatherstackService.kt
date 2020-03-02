@@ -1,6 +1,6 @@
 package com.dezzapps.mrforecast.data
 
-import com.dezzapps.mrforecast.data.response.CurrentWeatherResponse
+import com.dezzapps.mrforecast.data.network.response.CurrentWeatherResponse
 import com.dezzapps.mrforecast.utils.GlobalConstans
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
