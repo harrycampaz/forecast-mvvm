@@ -2,6 +2,7 @@ package com.dezzapps.mrforecast.ui.weather.current
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +41,10 @@ class CurrentWeatherFragment : Fragment() {
 
         GlobalScope.launch(Dispatchers.Main) {
             val currentWeatherResponse = apiWeatherstackService.getCurrentWeather("London").await()
-            textView.text = currentWeatherResponse.current.toString()
+
+            Log.d("Este es el dato: ", currentWeatherResponse.toString())
+          //  print("Esta es el DATO: "+currentWeatherResponse)
+             textView.text = currentWeatherResponse.currentWeatherEntry.toString()
         }
     }
 

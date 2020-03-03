@@ -1,6 +1,7 @@
 package com.dezzapps.mrforecast.data
 
-import com.dezzapps.mrforecast.data.network.response.CurrentWeatherResponse
+
+import com.dezzapps.mrforecast.data.network.response.CurrentWeatherRespose
 import com.dezzapps.mrforecast.utils.GlobalConstans
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -15,22 +16,27 @@ val API_KEY = GlobalConstans.KEY
 // http://api.weatherstack.com/current?access_key=795ce159eb4bc4da5df9ba1c97eb81ef&query=New York
 interface ApiWeatherstackService {
 
-   @GET("current")
+   @GET("dataMain")
    fun getCurrentWeather(
        @Query("query") location: String
 
-   ): Deferred<CurrentWeatherResponse>
+   ): Deferred<CurrentWeatherRespose>
 
     companion object {
         operator  fun invoke(): ApiWeatherstackService{
 
             val requestInterceptor = Interceptor{
                 chain ->
+//                  New Version
+//                val url = chain.request()
+//                    .url()
+//                    .newBuilder()
+//                    .addQueryParameter("access_key", API_KEY)
+//                    .build()
 
                 val url = chain.request()
                     .url()
                     .newBuilder()
-                    .addQueryParameter("access_key", API_KEY)
                     .build()
 
                 val request = chain.request()
@@ -47,7 +53,7 @@ interface ApiWeatherstackService {
 
             return  Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("http://api.weatherstack.com/")
+                .baseUrl("http://10.0.2.2:3000/")
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

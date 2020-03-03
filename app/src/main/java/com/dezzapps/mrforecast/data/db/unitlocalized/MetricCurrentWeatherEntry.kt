@@ -2,24 +2,22 @@ package com.dezzapps.mrforecast.data.db.unitlocalized
 
 import androidx.room.ColumnInfo
 
-data class ImperialCurrentWeatherEntry(
-
-    @ColumnInfo(name = "tempF")
+data class MetricCurrentWeatherEntry(
+    @ColumnInfo(name = "tempC")
     override val temperature: Double,
     @ColumnInfo(name = "condition_text")
     override val conditionText: String,
     @ColumnInfo(name = "condition_icon")
     override val conditionIconUrl: String,
-    @ColumnInfo(name = "windMph")
+    @ColumnInfo(name = "windKph")
     override val windSpeed: Double,
     @ColumnInfo(name = "windDir")
     override val windDirection: Double,
-    @ColumnInfo(name = "precipIn")
+    @ColumnInfo(name = "precipMm")
     override val precipitationVolume: Double,
-    @ColumnInfo(name = "feelsLikeF")
+    @ColumnInfo(name = "feelsLikeC")
     override val feelslikeTemperature: Double,
-    @ColumnInfo(name = "visMiles")
+    @ColumnInfo(name = "visKm")
     override val visibilityDistance: Double
-
 
 ): UnitSpecificCurrentWeatherEntry
