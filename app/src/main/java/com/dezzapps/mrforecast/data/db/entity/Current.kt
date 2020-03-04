@@ -2,10 +2,11 @@ package com.dezzapps.mrforecast.data.db.entity
 
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-const val CURRENT_WEATHER_IDS = 0
+const val CURRENT_WEATHER_ID = 0
 @Entity(tableName = "current_weather")
 data class Current(
     val cloudcover: Int,
@@ -24,8 +25,10 @@ data class Current(
     @SerializedName("weather_code")
     val weatherCode: Int,
     @SerializedName("weather_descriptions")
+    @Ignore
     val weatherDescriptions: List<String>,
     @SerializedName("weather_icons")
+    @Ignore
     val weatherIcons: List<String>,
     @SerializedName("wind_degree")
     val windDegree: Int,

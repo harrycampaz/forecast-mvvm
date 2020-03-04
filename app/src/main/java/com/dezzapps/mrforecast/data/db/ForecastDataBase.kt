@@ -4,10 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.dezzapps.mrforecast.data.db.entity.CurrentWeatherEntry
+import com.dezzapps.mrforecast.data.db.entity.Current
+
 
 @Database(
-    entities = [CurrentWeatherEntry::class],
+    entities = [Current::class],
     version = 1
 )
 

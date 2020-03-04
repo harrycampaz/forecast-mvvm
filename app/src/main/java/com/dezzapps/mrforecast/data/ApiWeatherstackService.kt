@@ -1,7 +1,8 @@
 package com.dezzapps.mrforecast.data
 
 
-import com.dezzapps.mrforecast.data.network.response.CurrentWeatherRespose
+import com.dezzapps.mrforecast.data.network.ConnectivityInterceptor
+import com.dezzapps.mrforecast.data.network.response.CurrentWeatherResponse
 import com.dezzapps.mrforecast.utils.GlobalConstans
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -16,28 +17,30 @@ val API_KEY = GlobalConstans.KEY
 // http://api.weatherstack.com/current?access_key=795ce159eb4bc4da5df9ba1c97eb81ef&query=New York
 interface ApiWeatherstackService {
 
-   @GET("dataMain")
+   @GET("current")
    fun getCurrentWeather(
        @Query("query") location: String
 
-   ): Deferred<CurrentWeatherRespose>
+   ): Deferred<CurrentWeatherResponse>
 
     companion object {
-        operator  fun invoke(): ApiWeatherstackService{
+        operator  fun invoke(
+            connectivityInterceptor: ConnectivityInterceptor
+        ): ApiWeatherstackService{
 
             val requestInterceptor = Interceptor{
                 chain ->
 //                  New Version
-//                val url = chain.request()
-//                    .url()
-//                    .newBuilder()
-//                    .addQueryParameter("access_key", API_KEY)
-//                    .build()
-
                 val url = chain.request()
                     .url()
                     .newBuilder()
+                    .addQueryParameter("access_key", API_KEY)
                     .build()
+
+//                val url = chain.request()
+//                    .url()
+//                    .newBuilder()
+//                    .build()
 
                 val request = chain.request()
                     .newBuilder()
@@ -49,11 +52,12 @@ interface ApiWeatherstackService {
 
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(requestInterceptor)
+                .addInterceptor(connectivityInterceptor)
                 .build()
 
             return  Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("http://10.0.2.2:3000/")
+                .baseUrl("http://api.weatherstack.com/")
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
